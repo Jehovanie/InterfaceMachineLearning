@@ -1,4 +1,11 @@
-app.listen(PORT, '0.0.0.0', function () {
-    console.log("Node app is running at localhost:" + app.get('port'));
+const express = require('express');
+const path = require('path');
+const app = express();
 
-})
+
+app.use(express.static(__dirname + '/dist/<app-name>'));
+
+app.get('/*', function (req, res) {
+    res.sendFile(path.join(__dirname + '/dist/<app-name>/index.html'));
+});
+app.listen(process.env.PORT || 8080);
